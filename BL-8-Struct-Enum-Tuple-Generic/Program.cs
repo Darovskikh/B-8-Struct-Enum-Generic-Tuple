@@ -21,7 +21,7 @@ namespace BL_8_Struct_Enum_Tuple_Generic
             int count = 0;
             for (int i = 0; i < rectangles.Length; i++)
             {
-                for (int j = 0; j < rectangles.Length; j++)
+                for (int j = i+1; j < rectangles.Length-1; j++)
                 {
                     if (rectangles[i].h == rectangles[j].h && rectangles[i].w == rectangles[j].w)
                     {
