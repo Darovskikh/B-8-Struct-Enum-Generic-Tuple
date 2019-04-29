@@ -10,88 +10,54 @@ namespace BL_8_Struct_Enum_Tuple_Generic
     {
         static void Main(string[] args)
         {
-            Practice.Lb8_P2_3();
-
-            Lesson.EnumExample();
-
-            //Fruits blabla = (Fruits)4;
+            Rectangle rectangle = new Rectangle(10, 20, new Coordinates(5, 6));
             
-            var numbers = new [] { 1, 4, 2, 7, 8 };
-            SortUn<int>(numbers, new IntComparer());
-
-            var nbs = new Neighbor[]
+            Rectangle[] rectangles = new Rectangle[100];
+            Random random = new Random();
+            for (int i = 0; i < 100; i++)
             {
-                new Neighbor { flatNumber = 5, name = "Olga"},
-                new Neighbor { flatNumber = 8, name = "Vika"},
-                new Neighbor { flatNumber = 3, name = "Lena"},
-            };
+                rectangles[i] = new Rectangle(random.Next(10), random.Next(10),
+                    new Coordinates(0, 0));                
+            }
 
-            SortUn<Neighbor>(nbs, new NeibourComparer());
+            int count = 0;
+            for (int i = 0; i < rectangles.Length; i++)
+            {
+                for (int j = i+1; j < rectangles.Length-1; j++)
+                {
+                    if (rectangles[i].Equals(rectangles[j]))
+                    {                        
+                       count++;
+                       break;
+                    }
+                }
+            }
 
+            Console.WriteLine(count);
             Console.ReadLine();
         }
+    }
 
-        private const int bananos = 4;
-        
-             
+    struct Rectangle
+    {
+        public int w, h;
+        public Coordinates coords;
 
-        private static void SortUn<TSortingType>(TSortingType[] numbers, IComparer comparer)
+        public Rectangle(int w, int h, Coordinates coords)        
         {
-            for (int i = 1; i < numbers.Length; i++)
-            {
-                //if (numbers[i - 1].flatNumber > numbers[i].flatNumber)
-                if (comparer.Compare(numbers[i - 1], numbers[i]) >= 1)
-                {
-                    var temp = numbers[i - 1];
-                    numbers[i - 1] = numbers[i];
-                    numbers[i] = temp;
-                }
-            }
+            this.w = w;
+            this.h = h;
+            this.coords = coords;
         }
 
-        class Neighbour
+    }
+    struct Coordinates
+    {
+        int x, y;
+        public Coordinates(int x, int y)
         {
-            public string Name;
-            public int Number;
-        }
-
-        public interface IComparer<T>
-        {
-            int Compare(T obj1, T obj2);
-        }
-
-        public class IntComparer : IComparer<int>
-        {
-            public int Compare(int obj1, int obj2)
-            {
-                if (obj1 > obj2)
-                {
-                    return 1;
-                }
-                else if (obj1  == obj2)
-                {
-                    return 0;
-                }
-
-                return -1;
-            }
-        }
-
-        public class NeibourComparer : IComparer<Neighbor>
-        {
-            public int Compare(Neighbor obj1, Neighbor obj2)
-            {
-                if (obj1.flatNumber > (obj2).flatNumber)
-                {
-                    return 1;
-                }
-                else if (obj1.flatNumber == obj2.flatNumber)
-                {
-                    return 0;
-                }
-
-                return -1;
-            }
+            this.x = x;
+            this.y = y;
         }
     }
 }
